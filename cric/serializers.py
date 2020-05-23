@@ -37,6 +37,11 @@ class MatchesListSerializer(serializers.ModelSerializer):
 
 
 class PointListSerializer(serializers.ModelSerializer):
+    team = serializers.SerializerMethodField()
+
+    def get_team(self,obj):
+        return obj.team.title
+
     class Meta:
         model = PointsTable
         fields = '__all__'

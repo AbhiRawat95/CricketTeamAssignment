@@ -96,7 +96,7 @@ def update_points(sender, instance, created,update_fields, **kwargs):
         team = get_object_or_404(PointsTable, team=instance.winner_team)
         team.points +=2
         team.save()
-
+"""Signal to increment points of the winning team"""
 signals.post_save.connect(receiver=update_points, sender=MatchStats)
 
 
@@ -106,6 +106,6 @@ class PointsTable(models.Model):
 
     class Meta:
         app_label = 'cric'
-        ordering = ['points']
+        ordering = ['-points']
         verbose_name = _('PointsTable')
 

@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from cric.views import *
+from cric.utils import match_schedule_generator
 
 urlpatterns = [
     # ---- urls for cric app  ----#
@@ -10,4 +11,5 @@ urlpatterns = [
     url(r'^team-list/$', TeamListingView.as_view(), name='team-list'),
     url(r'^team-details/(?P<team_id>[0-9a-f-]+)/$', TeamDetailsView.as_view(), name='team-details'),
     url(r'^points-table/$', PointsTableListingView.as_view(), name='points-table'),
+    url(r'^match-schedule-generator/$', Matchschedule.as_view(), name='match-schedule-generator'),
 ]

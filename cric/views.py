@@ -6,6 +6,9 @@ from rest_framework.views import APIView
 from django.views.generic import ListView
 from cric.models import CricketTeam,TeamPlayers,MatchStats,PointsTable
 from cric.serializers import CricketTeamSerializer,PlayerListSerializer,MatchesListSerializer,PointListSerializer
+from rest_framework.response import Response
+
+from cric.utils import match_schedule_generator
 
 
 class CricketTeamList(ListAPIView):
@@ -58,6 +61,16 @@ class PointTableList(ListAPIView):
                      }
         return JsonResponse(data, status=status.HTTP_200_OK)
 
+
+class Matchschedule(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self,request):
+        try:
+            match_schedule_generator()
+            return Response({"is_success": True, "message": 'Schedule Generated'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"is_success": False, "message": 'Schedule Not Generated Generated'}, status=status.HTTP_400_BAD_REQUEST)
 
 #Template Section Views
 
